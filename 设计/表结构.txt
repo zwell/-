@@ -1,0 +1,97 @@
+CREATE TABLE `hotel` (
+`id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键id',
+`name` varchar(30) NOT NULL COMMENT '名称',
+`location` varchar(80) NOT NULL COMMENT '位置',
+`phone` varchar(20) NOT NULL COMMENT '联系电话',
+`leader_id` int(11) NOT NULL DEFAULT 0 COMMENT '负责人编号，员工表',
+`create_datetime` datetime NOT NULL COMMENT '创建时间',
+PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT '宾馆表';
+
+CREATE TABLE `room_type` (
+`id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键id',
+`name` varchar(30) NOT NULL COMMENT '名称',
+`fee` int(11) NOT NULL DEFAULT 0 COMMENT '费用',
+`area` float(5,2) NOT NULL DEFAULT 0 COMMENT '面积',
+`number_of_bed` tinyint(1) NOT NULL DEFAULT 1 COMMENT '床位数',
+`number_of_room` int(11) NOT NULL DEFAULT 0 COMMENT '房间数',
+`create_datetime` datetime NOT NULL COMMENT '创建时间',
+PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT '客房类型表';
+
+CREATE TABLE `room` (
+`id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键id',
+`name` varchar(30) NOT NULL COMMENT '名称',
+`type_id` int(11) NOT NULL DEFAULT 0 COMMENT '客房类型编号',
+`phone` varchar(20) NOT NULL DEFAULT "" COMMENT '联系电话',
+`status` tinyint(1) NOT NULL DEFAULT 1 COMMENT '状态。1空闲，2已预定（内部预订），3已入住，－1维修中',
+`create_datetime` datetime NOT NULL COMMENT '创建时间',
+PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT '客房表';
+
+CREATE TABLE `employee` (
+`id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键id',
+`type` enum("负责人","前台接待员","客房服务员") NOT NULL COMMENT '类型',
+`name` varchar(30) NOT NULL COMMENT '名称',
+`phone` varchar(20) NOT NULL DEFAULT "" COMMENT '联系电话',
+`join_date` date NOT NULL COMMENT '入职日期',
+`date_of_birth` date NOT NULL COMMENT '生日',
+`salary` int(11) NOT NULL DEFAULT 0 COMMENT '工资',
+`status` tinyint(1) NOT NULL DEFAULT 1 COMMENT '状态。1正常，2休假中，-1已离职',
+`create_datetime` datetime NOT NULL COMMENT '创建时间',
+PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT '员工表';
+
+CREATE TABLE `booking` (
+`id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键id',
+`room_type_id` int(11) NOT NULL COMMENT '客房类型编号',
+`customer_name` varchar(30) NOT NULL COMMENT '客户姓名',
+`customer_phone` varchar(20) NOT NULL COMMENT '客户联系方式',
+`check_in_date` date NOT NULL COMMENT '入住日期',
+`check_in_days` int(11) NOT NULL DEFAULT 1 COMMENT '入住天数',
+`check_in_fee` int(11) NOT NULL COMMENT '入住房费',
+`prepaid` int(11) NOT NULL COMMENT '预付金额',
+`keep_datetime` datetime NOT NULL COMMENT '最晚保留时间',
+`booking_datetime` datetime NOT NULL COMMENT '预订时间',
+`status` tinyint(1) NOT NULL DEFAULT 1 COMMENT '状态。1预定成功,2已入住,-1预定超时,-2预定取消',
+PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT '预订表';
+
+CREATE TABLE `check_in` (
+`id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键id',
+`booking_id` int(11) NOT NULL DEFAULT 0 COMMENT '预订编号',
+`room_id` int(11) NOT NULL COMMENT '客房编号',
+`employee_id` int(11) NOT NULL COMMENT '员工编号',
+`check_in_datetime` datetime NOT NULL COMMENT '入住时间',
+`check_in_days` int(11) NOT NULL DEFAULT 1 COMMENT '入住天数',
+`check_in_fee` int(11) NOT NULL COMMENT '入住房费',
+`pay_fee` int(11) NOT NULL COMMENT '已缴房费',
+`desopsit` int(11) NOT NULL COMMENT '押金',
+`check_out_datetime` datetime NOT NULL COMMENT '预计退房时间',
+`status` tinyint(1) NOT NULL DEFAULT 1 COMMENT '状态。1入住中，2已退房',
+`create_datetime` datetime NOT NULL COMMENT '创建时间',
+PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT '入住表';
+
+CREATE TABLE `check_in_customer` (
+`id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键id',
+`check_in_id` int(11) NOT NULL COMMENT '入住编号',
+`employee_id` int(11) NOT NULL COMMENT '员工编号',
+`name` varchar(30) NOT NULL COMMENT '姓名',
+`gender` enum("男","女") NOT NULL COMMENT '性别',
+`ID_number` char(18) NOT NULL COMMENT '身份证号',
+`create_datetime` datetime NOT NULL COMMENT '创建时间',
+PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT '入住客户表';
+
+CREATE TABLE `check_out` (
+`id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键id',
+`check_in_id` int(11) NOT NULL COMMENT '入住编号',
+`employee_id` int(11) NOT NULL COMMENT '员工编号',
+`service_employee_id` int(11) NOT NULL COMMENT '服务员工编号',
+`name` varchar(30) NOT NULL COMMENT '姓名',
+`gender` enum("男","女") NOT NULL COMMENT '性别',
+`ID_number` char(18) NOT NULL COMMENT '身份证号',
+`create_datetime` datetime NOT NULL COMMENT '创建时间',
+PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT '退房表';

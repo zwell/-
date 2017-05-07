@@ -1,97 +1,107 @@
+create database hotel;
+
 CREATE TABLE `hotel` (
-`id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Ö÷¼üid',
-`name` varchar(30) NOT NULL COMMENT 'Ãû³Æ',
-`location` varchar(80) NOT NULL COMMENT 'Î»ÖÃ',
-`phone` varchar(20) NOT NULL COMMENT 'ÁªÏµµç»°',
-`leader_id` int(11) NOT NULL DEFAULT 0 COMMENT '¸ºÔğÈË±àºÅ£¬Ô±¹¤±í',
-`create_datetime` datetime NOT NULL COMMENT '´´½¨Ê±¼ä',
+`id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT 'ä¸»é”®id',
+`name` varchar(30) NOT NULL COMMENT 'åç§°',
+`location` varchar(80) NOT NULL COMMENT 'ä½ç½®',
+`phone` varchar(20) NOT NULL COMMENT 'è”ç³»ç”µè¯',
+`leader_id` int(11) NOT NULL DEFAULT 0 COMMENT 'è´Ÿè´£äººç¼–å·ï¼Œå‘˜å·¥è¡¨',
+`create_datetime` datetime NOT NULL COMMENT 'åˆ›å»ºæ—¶é—´',
 PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT '±ö¹İ±í';
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT 'å®¾é¦†è¡¨';
 
 CREATE TABLE `room_type` (
-`id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Ö÷¼üid',
-`name` varchar(30) NOT NULL COMMENT 'Ãû³Æ',
-`fee` int(11) NOT NULL DEFAULT 0 COMMENT '·ÑÓÃ',
-`area` float(5,2) NOT NULL DEFAULT 0 COMMENT 'Ãæ»ı',
-`number_of_bed` tinyint(1) NOT NULL DEFAULT 1 COMMENT '´²Î»Êı',
-`number_of_room` int(11) NOT NULL DEFAULT 0 COMMENT '·¿¼äÊı',
-`create_datetime` datetime NOT NULL COMMENT '´´½¨Ê±¼ä',
+`id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT 'ä¸»é”®id',
+`name` varchar(30) NOT NULL COMMENT 'åç§°',
+`fee` int(11) NOT NULL DEFAULT 0 COMMENT 'è´¹ç”¨',
+`area` float(5,2) NOT NULL DEFAULT 0 COMMENT 'é¢ç§¯',
+`number_of_bed` tinyint(1) NOT NULL DEFAULT 1 COMMENT 'åºŠä½æ•°',
+`number_of_room` int(11) NOT NULL DEFAULT 0 COMMENT 'æˆ¿é—´æ•°',
+`number_of_left_room` int(11) NOT NULL DEFAULT 0 COMMENT 'å‰©ä½™æˆ¿é—´æ•°',
+`create_datetime` datetime NOT NULL COMMENT 'åˆ›å»ºæ—¶é—´',
 PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT '¿Í·¿ÀàĞÍ±í';
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT 'å®¢æˆ¿ç±»å‹è¡¨';
 
 CREATE TABLE `room` (
-`id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Ö÷¼üid',
-`name` varchar(30) NOT NULL COMMENT 'Ãû³Æ',
-`type_id` int(11) NOT NULL DEFAULT 0 COMMENT '¿Í·¿ÀàĞÍ±àºÅ',
-`phone` varchar(20) NOT NULL DEFAULT "" COMMENT 'ÁªÏµµç»°',
-`status` tinyint(1) NOT NULL DEFAULT 1 COMMENT '×´Ì¬¡£1¿ÕÏĞ£¬2ÒÑÔ¤¶¨£¨ÄÚ²¿Ô¤¶©£©£¬3ÒÑÈë×¡£¬£­1Î¬ĞŞÖĞ',
-`create_datetime` datetime NOT NULL COMMENT '´´½¨Ê±¼ä',
+`id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT 'ä¸»é”®id',
+`name` varchar(30) NOT NULL COMMENT 'åç§°',
+`type_id` int(11) NOT NULL DEFAULT 0 COMMENT 'å®¢æˆ¿ç±»å‹ç¼–å·',
+`phone` varchar(20) NOT NULL DEFAULT "" COMMENT 'è”ç³»ç”µè¯',
+`status` tinyint(1) NOT NULL DEFAULT 1 COMMENT 'çŠ¶æ€ã€‚1ç©ºé—²ï¼Œ2å·²é¢„å®šï¼ˆå†…éƒ¨é¢„è®¢ï¼‰ï¼Œ3å·²å…¥ä½ï¼Œï¼1ç»´ä¿®ä¸­',
+`create_datetime` datetime NOT NULL COMMENT 'åˆ›å»ºæ—¶é—´',
 PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT '¿Í·¿±í';
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT 'å®¢æˆ¿è¡¨';
+
+CREATE TABLE `customer` (
+`id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT 'ä¸»é”®id',
+`name` varchar(30) NOT NULL COMMENT 'åç§°',
+`ID_number` char(18) NOT NULL COMMENT 'èº«ä»½è¯å·',
+`phone` varchar(20) NOT NULL DEFAULT "" COMMENT 'è”ç³»ç”µè¯',
+`register_datetime` datetime NOT NULL COMMENT 'æ³¨å†Œæ—¶é—´',
+`date_of_birth` date NOT NULL COMMENT 'ç”Ÿæ—¥',
+`cumulative_consumption` int(11) NOT NULL DEFAULT 0 COMMENT 'ç´¯ç§¯æ¶ˆè´¹',
+PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT 'å®¢æˆ·è¡¨';
 
 CREATE TABLE `employee` (
-`id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Ö÷¼üid',
-`type` enum("¸ºÔğÈË","Ç°Ì¨½Ó´ıÔ±","¿Í·¿·şÎñÔ±") NOT NULL COMMENT 'ÀàĞÍ',
-`name` varchar(30) NOT NULL COMMENT 'Ãû³Æ',
-`phone` varchar(20) NOT NULL DEFAULT "" COMMENT 'ÁªÏµµç»°',
-`join_date` date NOT NULL COMMENT 'ÈëÖ°ÈÕÆÚ',
-`date_of_birth` date NOT NULL COMMENT 'ÉúÈÕ',
-`salary` int(11) NOT NULL DEFAULT 0 COMMENT '¹¤×Ê',
-`status` tinyint(1) NOT NULL DEFAULT 1 COMMENT '×´Ì¬¡£1Õı³££¬2Ğİ¼ÙÖĞ£¬-1ÒÑÀëÖ°',
-`create_datetime` datetime NOT NULL COMMENT '´´½¨Ê±¼ä',
+`id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT 'ä¸»é”®id',
+`type` enum("è´Ÿè´£äºº","å‰å°æ¥å¾…å‘˜","å®¢æˆ¿æœåŠ¡å‘˜") NOT NULL COMMENT 'ç±»å‹',
+`name` varchar(30) NOT NULL COMMENT 'åç§°',
+`phone` varchar(20) NOT NULL DEFAULT "" COMMENT 'è”ç³»ç”µè¯',
+`join_date` date NOT NULL COMMENT 'å…¥èŒæ—¥æœŸ',
+`date_of_birth` date NOT NULL COMMENT 'ç”Ÿæ—¥',
+`salary` int(11) NOT NULL DEFAULT 0 COMMENT 'åŸºæœ¬å·¥èµ„',
+`status` tinyint(1) NOT NULL DEFAULT 1 COMMENT 'çŠ¶æ€ã€‚1æ­£å¸¸ï¼Œ2ä¼‘å‡ä¸­ï¼Œ-1å·²ç¦»èŒ',
+`create_datetime` datetime NOT NULL COMMENT 'åˆ›å»ºæ—¶é—´',
 PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT 'Ô±¹¤±í';
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT 'å‘˜å·¥è¡¨';
 
 CREATE TABLE `booking` (
-`id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Ö÷¼üid',
-`room_type_id` int(11) NOT NULL COMMENT '¿Í·¿ÀàĞÍ±àºÅ',
-`customer_name` varchar(30) NOT NULL COMMENT '¿Í»§ĞÕÃû',
-`customer_phone` varchar(20) NOT NULL COMMENT '¿Í»§ÁªÏµ·½Ê½',
-`check_in_date` date NOT NULL COMMENT 'Èë×¡ÈÕÆÚ',
-`check_in_days` int(11) NOT NULL DEFAULT 1 COMMENT 'Èë×¡ÌìÊı',
-`check_in_fee` int(11) NOT NULL COMMENT 'Èë×¡·¿·Ñ',
-`prepaid` int(11) NOT NULL COMMENT 'Ô¤¸¶½ğ¶î',
-`keep_datetime` datetime NOT NULL COMMENT '×îÍí±£ÁôÊ±¼ä',
-`booking_datetime` datetime NOT NULL COMMENT 'Ô¤¶©Ê±¼ä',
-`status` tinyint(1) NOT NULL DEFAULT 1 COMMENT '×´Ì¬¡£1Ô¤¶¨³É¹¦,2ÒÑÈë×¡,-1Ô¤¶¨³¬Ê±,-2Ô¤¶¨È¡Ïû',
+`id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT 'ä¸»é”®id',
+`customer_id` int(11) NOT NULL COMMENT 'å®¢æˆ·ç¼–å·',
+`room_type_id` int(11) NOT NULL COMMENT 'å®¢æˆ¿ç±»å‹ç¼–å·',
+`customer_name` varchar(30) NOT NULL COMMENT 'å®¢æˆ·å§“å',
+`customer_phone` varchar(20) NOT NULL COMMENT 'å®¢æˆ·è”ç³»æ–¹å¼',
+`check_in_date` date NOT NULL COMMENT 'å…¥ä½æ—¥æœŸ',
+`check_in_days` int(11) NOT NULL DEFAULT 1 COMMENT 'å…¥ä½å¤©æ•°',
+`check_in_fee` int(11) NOT NULL COMMENT 'å…¥ä½æˆ¿è´¹',
+`prepaid` int(11) NOT NULL COMMENT 'é¢„ä»˜é‡‘é¢',
+`keep_datetime` datetime NOT NULL COMMENT 'æœ€æ™šä¿ç•™æ—¶é—´',
+`booking_datetime` datetime NOT NULL COMMENT 'é¢„è®¢æ—¶é—´',
+`status` tinyint(1) NOT NULL DEFAULT 1 COMMENT 'çŠ¶æ€ã€‚1é¢„å®šæˆåŠŸ,2å·²å…¥ä½,-1é¢„å®šè¶…æ—¶,-2é¢„å®šå–æ¶ˆ',
 PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT 'Ô¤¶©±í';
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT 'é¢„è®¢è¡¨';
 
 CREATE TABLE `check_in` (
-`id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Ö÷¼üid',
-`booking_id` int(11) NOT NULL DEFAULT 0 COMMENT 'Ô¤¶©±àºÅ',
-`room_id` int(11) NOT NULL COMMENT '¿Í·¿±àºÅ',
-`employee_id` int(11) NOT NULL COMMENT 'Ô±¹¤±àºÅ',
-`check_in_datetime` datetime NOT NULL COMMENT 'Èë×¡Ê±¼ä',
-`check_in_days` int(11) NOT NULL DEFAULT 1 COMMENT 'Èë×¡ÌìÊı',
-`check_in_fee` int(11) NOT NULL COMMENT 'Èë×¡·¿·Ñ',
-`pay_fee` int(11) NOT NULL COMMENT 'ÒÑ½É·¿·Ñ',
-`desopsit` int(11) NOT NULL COMMENT 'Ñº½ğ',
-`check_out_datetime` datetime NOT NULL COMMENT 'Ô¤¼ÆÍË·¿Ê±¼ä',
-`status` tinyint(1) NOT NULL DEFAULT 1 COMMENT '×´Ì¬¡£1Èë×¡ÖĞ£¬2ÒÑÍË·¿',
-`create_datetime` datetime NOT NULL COMMENT '´´½¨Ê±¼ä',
+`id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT 'ä¸»é”®id',
+`booking_id` int(11) NOT NULL DEFAULT 0 COMMENT 'é¢„è®¢ç¼–å·',
+`customer_id` int(11) NOT NULL COMMENT 'å®¢æˆ·ç¼–å·',
+`room_id` int(11) NOT NULL COMMENT 'å®¢æˆ¿ç¼–å·',
+`check_in_datetime` datetime NOT NULL COMMENT 'å…¥ä½æ—¶é—´',
+`check_in_days` int(11) NOT NULL DEFAULT 1 COMMENT 'å…¥ä½å¤©æ•°',
+`check_in_fee` int(11) NOT NULL COMMENT 'å…¥ä½æˆ¿è´¹',
+`pay_fee` int(11) NOT NULL COMMENT 'å·²ç¼´æˆ¿è´¹',
+`desopsit` int(11) NOT NULL COMMENT 'æŠ¼é‡‘',
+`check_out_datetime` datetime NOT NULL COMMENT 'é¢„è®¡é€€æˆ¿æ—¶é—´',
+`status` tinyint(1) NOT NULL DEFAULT 1 COMMENT 'çŠ¶æ€ã€‚1å…¥ä½ä¸­ï¼Œ2å·²é€€æˆ¿',
 PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT 'Èë×¡±í';
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT 'å…¥ä½è¡¨';
 
 CREATE TABLE `check_in_customer` (
-`id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Ö÷¼üid',
-`check_in_id` int(11) NOT NULL COMMENT 'Èë×¡±àºÅ',
-`employee_id` int(11) NOT NULL COMMENT 'Ô±¹¤±àºÅ',
-`name` varchar(30) NOT NULL COMMENT 'ĞÕÃû',
-`gender` enum("ÄĞ","Å®") NOT NULL COMMENT 'ĞÔ±ğ',
-`ID_number` char(18) NOT NULL COMMENT 'Éí·İÖ¤ºÅ',
-`create_datetime` datetime NOT NULL COMMENT '´´½¨Ê±¼ä',
+`id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT 'ä¸»é”®id',
+`check_in_id` int(11) NOT NULL COMMENT 'å…¥ä½ç¼–å·',
+`name` varchar(30) NOT NULL COMMENT 'å§“å',
+`ID_number` char(18) NOT NULL COMMENT 'èº«ä»½è¯å·',
+`gender` enum("ç”·","å¥³") NOT NULL COMMENT 'æ€§åˆ«',
+`create_datetime` datetime NOT NULL COMMENT 'åˆ›å»ºæ—¶é—´',
 PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT 'Èë×¡¿Í»§±í';
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT 'å…¥ä½å®¢æˆ·è¡¨';
 
 CREATE TABLE `check_out` (
-`id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Ö÷¼üid',
-`check_in_id` int(11) NOT NULL COMMENT 'Èë×¡±àºÅ',
-`employee_id` int(11) NOT NULL COMMENT 'Ô±¹¤±àºÅ',
-`service_employee_id` int(11) NOT NULL COMMENT '·şÎñÔ±¹¤±àºÅ',
-`name` varchar(30) NOT NULL COMMENT 'ĞÕÃû',
-`gender` enum("ÄĞ","Å®") NOT NULL COMMENT 'ĞÔ±ğ',
-`ID_number` char(18) NOT NULL COMMENT 'Éí·İÖ¤ºÅ',
-`create_datetime` datetime NOT NULL COMMENT '´´½¨Ê±¼ä',
+`id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT 'ä¸»é”®id',
+`check_in_id` int(11) NOT NULL COMMENT 'å…¥ä½ç¼–å·',
+`employee_id` int(11) NOT NULL COMMENT 'å‘˜å·¥ç¼–å·',
+`check_out_fee` int(11) NOT NULL COMMENT 'é€€æˆ¿ç¼´è´¹ï¼Œæ¶ˆè´¹å’Œç‰©å“æŸå',
+`checkout_datetime` datetime NOT NULL COMMENT 'é€€æˆ¿æ—¶é—´',
 PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT 'ÍË·¿±í';
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT 'é€€æˆ¿è¡¨';

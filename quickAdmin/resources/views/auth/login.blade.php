@@ -30,7 +30,7 @@
                             <label class="col-md-4 control-label">{{ trans('quickadmin::auth.login-email') }}</label>
 
                             <div class="col-md-6">
-                                <input type="email"
+                                <input type="text"
                                        class="form-control"
                                        name="email"
                                        value="{{ old('email') }}">

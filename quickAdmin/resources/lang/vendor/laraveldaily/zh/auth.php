@@ -7,7 +7,7 @@ return [
 
   // auth-login
   'login-login' => '登录',
-  'login-email' => '邮箱',
+  'login-email' => '用户名',
   'login-password' => '密码',
   'login-remember_me' => '记住我',
   'login-btnlogin' => '登录',
@@ -23,5 +23,7 @@ return [
   'reset-password' => 'Password',  
   'reset-confirm_password' => 'Confirm password',  
   'reset-btnreset_password' => 'Reset password',
+
+  'failed'  => '失败',
 
 ];

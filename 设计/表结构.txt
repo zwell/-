@@ -14,11 +14,12 @@ CREATE TABLE `room_type` (
 `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键id',
 `name` varchar(30) NOT NULL COMMENT '名称',
 `fee` int(11) NOT NULL DEFAULT 0 COMMENT '费用',
-`area` float(5,2) NOT NULL DEFAULT 0 COMMENT '面积',
+`area` float(5,2) NOT NULL DEFAULT 0 COMMENT '面积/平方米',
 `number_of_bed` tinyint(1) NOT NULL DEFAULT 1 COMMENT '床位数',
 `number_of_room` int(11) NOT NULL DEFAULT 0 COMMENT '房间数',
 `number_of_left_room` int(11) NOT NULL DEFAULT 0 COMMENT '剩余房间数',
-`create_datetime` datetime NOT NULL COMMENT '创建时间',
+`created_at` timestamp NOT NULL COMMENT '创建时间',
+`updated_at` timestamp COMMENT '更新时间',
 PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT '客房类型表';
 
@@ -28,7 +29,8 @@ CREATE TABLE `room` (
 `type_id` int(11) NOT NULL DEFAULT 0 COMMENT '客房类型编号',
 `phone` varchar(20) NOT NULL DEFAULT "" COMMENT '联系电话',
 `status` tinyint(1) NOT NULL DEFAULT 1 COMMENT '状态。1空闲，2已预定（内部预订），3已入住，－1维修中',
-`create_datetime` datetime NOT NULL COMMENT '创建时间',
+`created_at` timestamp NOT NULL COMMENT '创建时间',
+`updated_at` timestamp COMMENT '更新时间',
 PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT '客房表';
 
@@ -67,8 +69,10 @@ CREATE TABLE `booking` (
 `check_in_fee` int(11) NOT NULL COMMENT '入住房费',
 `prepaid` int(11) NOT NULL COMMENT '预付金额',
 `keep_datetime` datetime NOT NULL COMMENT '最晚保留时间',
-`booking_datetime` datetime NOT NULL COMMENT '预订时间',
+#`booking_datetime` datetime NOT NULL COMMENT '预订时间',
 `status` tinyint(1) NOT NULL DEFAULT 1 COMMENT '状态。1预定成功,2已入住,-1预定超时,-2预定取消',
+`created_at` timestamp NOT NULL COMMENT '预订时间',
+`updated_at` timestamp COMMENT '更新时间',
 PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT '预订表';
 

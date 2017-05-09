@@ -19,9 +19,9 @@
 {!! Form::model($booking, array('class' => 'form-horizontal', 'id' => 'form-with-validation', 'method' => 'PATCH', 'route' => array(config('quickadmin.route').'.booking.update', $booking->id))) !!}
 
 <div class="form-group">
-    {!! Form::label('customer_name', '客户姓名', array('class'=>'col-sm-2 control-label')) !!}
+    {!! Form::label('11', '111', array('class'=>'col-sm-2 control-label')) !!}
     <div class="col-sm-10">
-        {!! Form::text('customer_name', old('customer_name',$booking->customer_name), array('class'=>'form-control')) !!}
+        {!! Form::text('11', old('11',$booking->11), array('class'=>'form-control')) !!}
         
     </div>
 </div>

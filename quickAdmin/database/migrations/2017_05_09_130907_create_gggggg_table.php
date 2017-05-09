@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Eloquent\Model;
 
-class CreateBookingTable extends Migration {
+class CreateGgggggTable extends Migration {
 
     /**
      * Run the migrations.
@@ -14,9 +14,10 @@ class CreateBookingTable extends Migration {
     public function up()
     {
         Model::unguard();
-        Schema::create('booking',function(Blueprint $table){
+        Schema::create('gggggg',function(Blueprint $table){
             $table->increments("id");
-            $table->string("customer_name")->nullable();
+            $table->date("aaaaa")->nullable();
+            $table->dateTime("bbbbbbb")->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
@@ -29,7 +30,7 @@ class CreateBookingTable extends Migration {
      */
     public function down()
     {
-        Schema::drop('booking');
+        Schema::drop('gggggg');
     }
 
 }

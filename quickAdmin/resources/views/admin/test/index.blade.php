@@ -16,9 +16,11 @@
                         <th>
                             {!! Form::checkbox('delete_all',1,false,['class' => 'mass']) !!}
                         </th>
-                        <th>aaaaaa</th>
-<th>bbb</th>
-<th>cccc</th>
+                        <th>aaaaaaaaaa</th>
+<th>bbbbbbbbbb</th>
+<th>cccccccc</th>
+<th>dddd</th>
+<th>eeeeeeeeee</th>
 
                         <th>&nbsp;</th>
                     </tr>
@@ -30,9 +32,11 @@
                             <td>
                                 {!! Form::checkbox('del-'.$row->id,1,false,['class' => 'single','data-id'=> $row->id]) !!}
                             </td>
-                            <td>{{ $row->aaaa }}</td>
-<td>{{ $row->bbbb }}</td>
-<td>{{ isset($row->booking->customer_name) ? $row->booking->customer_name : '' }}</td>
+                            <td>{{ $row->aa }}</td>
+<td>{{ $row->bbbbbbb }}</td>
+<td>{{ $row->cccccccc }}</td>
+<td>{{ $row->dddddddddd }}</td>
+<td>{{ $row->eeeee }}</td>
 
                             <td>
                                 {!! link_to_route(config('quickadmin.route').'.test.edit', trans('quickadmin::templates.templates-view_index-edit'), array($row->id), array('class' => 'btn btn-xs btn-info')) !!}

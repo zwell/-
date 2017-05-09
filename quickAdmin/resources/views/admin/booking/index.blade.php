@@ -16,7 +16,7 @@
                         <th>
                             {!! Form::checkbox('delete_all',1,false,['class' => 'mass']) !!}
                         </th>
-                        <th>111</th>
+                        <th>check_in_date</th>
 
                         <th>&nbsp;</th>
                     </tr>
@@ -28,7 +28,7 @@
                             <td>
                                 {!! Form::checkbox('del-'.$row->id,1,false,['class' => 'single','data-id'=> $row->id]) !!}
                             </td>
-                            <td>{{ $row->11 }}</td>
+                            <td>{{ $row->check_in_date }}</td>
 
                             <td>
                                 {!! link_to_route(config('quickadmin.route').'.booking.edit', trans('quickadmin::templates.templates-view_index-edit'), array($row->id), array('class' => 'btn btn-xs btn-info')) !!}

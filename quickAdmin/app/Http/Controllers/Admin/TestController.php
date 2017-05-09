@@ -10,7 +10,6 @@ use App\Http\Requests\CreateTestRequest;
 use App\Http\Requests\UpdateTestRequest;
 use Illuminate\Http\Request;
 
-use App\Booking;
 
 
 class TestController extends Controller {
@@ -24,7 +23,7 @@ class TestController extends Controller {
 	 */
 	public function index(Request $request)
     {
-        $test = Test::with("booking")->get();
+        $test = Test::all();
 
 		return view('admin.test.index', compact('test'));
 	}
@@ -36,10 +35,11 @@ class TestController extends Controller {
 	 */
 	public function create()
 	{
-	    $booking = Booking::pluck("customer_name", "id")->prepend('Please select', null);
-
 	    
-	    return view('admin.test.create', compact("booking"));
+	    
+        $eeeee = Test::$eeeee;
+
+	    return view('admin.test.create', compact("eeeee"));
 	}
 
 	/**
@@ -64,10 +64,11 @@ class TestController extends Controller {
 	public function edit($id)
 	{
 		$test = Test::find($id);
-	    $booking = Booking::pluck("customer_name", "id")->prepend('Please select', null);
-
 	    
-		return view('admin.test.edit', compact('test', "booking"));
+	    
+        $eeeee = Test::$eeeee;
+
+		return view('admin.test.edit', compact('test', "eeeee"));
 	}
 
 	/**

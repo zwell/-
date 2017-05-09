@@ -36,7 +36,6 @@ class RoomTypeController extends Controller {
 	public function create()
 	{
 	    
-	    
 	    return view('admin.roomtype.create');
 	}
 
@@ -46,8 +45,7 @@ class RoomTypeController extends Controller {
      * @param CreateRoomTypeRequest|Request $request
 	 */
 	public function store(CreateRoomTypeRequest $request)
-	{
-	    
+	{    
 		RoomType::create($request->all());
 
 		return redirect()->route(config('quickadmin.route').'.roomtype.index');
@@ -110,6 +108,33 @@ class RoomTypeController extends Controller {
         } else {
             RoomType::whereNotNull('id')->delete();
         }
+
+        return redirect()->route(config('quickadmin.route').'.roomtype.index');
+    }
+
+    /**
+     * 
+     * @param Request $request
+     *
+     * @return mixed
+     */
+    public function getAvaiableRoomTypes(Request $request)
+    {
+    	$checkInDate = $request->get('check_in_date');
+    	$checkInDays = $request->get('check_in_days');
+    	if (!$checkInDate || !$checkInDays) {
+    		return "缺少参数";
+    	}
+    	$checkInDates = array();
+    	for ($i = 0; $i < $checkInDays; $i++) {
+    		$checkInDates[] = date("Y-m-d", strtotime("+ ".$i." days", strtotime($checkInDate)));
+    	}
+
+    	// 不可用的房间
+        $sql = "SELECT cr.room_id FROM room_date_check_in cr
+        	WHERE cr.date IN ('".implode("','", $checkInDates)."') AND cr.status = 1
+        ";
+        echo $sql;exit;
 
         return redirect()->route(config('quickadmin.route').'.roomtype.index');
     }

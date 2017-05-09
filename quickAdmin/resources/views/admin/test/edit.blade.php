@@ -19,22 +19,40 @@
 {!! Form::model($test, array('class' => 'form-horizontal', 'id' => 'form-with-validation', 'method' => 'PATCH', 'route' => array(config('quickadmin.route').'.test.update', $test->id))) !!}
 
 <div class="form-group">
-    {!! Form::label('aaaa', 'aaaaaa*', array('class'=>'col-sm-2 control-label')) !!}
+    {!! Form::label('aa', 'aaaaaaaaaa', array('class'=>'col-sm-2 control-label')) !!}
     <div class="col-sm-10">
-        {!! Form::text('aaaa', old('aaaa',$test->aaaa), array('class'=>'form-control')) !!}
+        {!! Form::hidden('aa','') !!}
+        {!! Form::checkbox('aa', 1, $test->aa == 1) !!}
         
     </div>
 </div><div class="form-group">
-    {!! Form::label('bbbb', 'bbb*', array('class'=>'col-sm-2 control-label')) !!}
+    {!! Form::label('bbbbbbb', 'bbbbbbbbbb', array('class'=>'col-sm-2 control-label')) !!}
     <div class="col-sm-10">
-        {!! Form::hidden('bbbb','') !!}
-        {!! Form::checkbox('bbbb', 1, $test->bbbb == 1) !!}
+        {!! Form::text('bbbbbbb', old('bbbbbbb',$test->bbbbbbb), array('class'=>'form-control datepicker')) !!}
         
     </div>
 </div><div class="form-group">
-    {!! Form::label('booking_id', 'cccc', array('class'=>'col-sm-2 control-label')) !!}
+    {!! Form::label('cccccccc', 'cccccccc', array('class'=>'col-sm-2 control-label')) !!}
     <div class="col-sm-10">
-        {!! Form::select('booking_id', $booking, old('booking_id',$test->booking_id), array('class'=>'form-control')) !!}
+        {!! Form::text('cccccccc', old('cccccccc',$test->cccccccc), array('class'=>'form-control datetimepicker')) !!}
+        
+    </div>
+</div><div class="form-group">
+    {!! Form::label('dddddddddd', 'dddd', array('class'=>'col-sm-2 control-label')) !!}
+    <div class="col-sm-10">
+        {!! Form::radio('dddddddddd', '', false) !!}
+        
+    </div>
+</div><div class="form-group">
+    {!! Form::label('eeeee', 'eeeeeeeeee', array('class'=>'col-sm-2 control-label')) !!}
+    <div class="col-sm-10">
+        {!! Form::select('eeeee', $eeeee, old('eeeee',$test->eeeee), array('class'=>'form-control')) !!}
+        
+    </div>
+</div><div class="form-group">
+    {!! Form::label('fffffffff', 'ffffffff', array('class'=>'col-sm-2 control-label')) !!}
+    <div class="col-sm-10">
+        {!! Form::textarea('fffffffff', old('fffffffff',$test->fffffffff), array('class'=>'form-control')) !!}
         
     </div>
 </div>

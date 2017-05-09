@@ -24,8 +24,6 @@ class UpdateTestRequest extends FormRequest {
 	public function rules()
 	{
 		return [
-            'aaaa' => 'required', 
-            'bbbb' => 'required|unique:test,bbbb,'.$this->test, 
             
 		];
 	}

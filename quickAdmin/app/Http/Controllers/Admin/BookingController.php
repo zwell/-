@@ -36,7 +36,6 @@ class BookingController extends Controller {
 	public function create()
 	{
 	    
-	    
 	    return view('admin.booking.create');
 	}
 

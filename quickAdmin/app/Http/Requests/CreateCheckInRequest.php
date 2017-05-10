@@ -24,8 +24,11 @@ class CreateCheckInRequest extends FormRequest {
 	public function rules()
 	{
 		return [
-            'room_type_id' => 'required', 
-            
+            'room_id' => 'required',
+            'check_in_days' => 'required',
+            'check_in_fee' => 'required',
+            'pay_fee' => 'required',
+            'check_out_datetime' => 'required',
 		];
 	}
 }

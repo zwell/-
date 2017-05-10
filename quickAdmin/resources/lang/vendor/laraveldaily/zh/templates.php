@@ -36,6 +36,7 @@ return [
   'templates-view_index-list' => '列表',
   'templates-view_index-edit' => '编辑',
   'templates-view_index-delete' => '删除',
+  'templates-view_index-cancel' => '取消',
   'templates-view_index-delete_checked' => '删除确认',
   'templates-view_index-confirm_deletion2' => '确定要删除吗?',  
   'templates-view_index-no_entries_found' => '没有数据.',

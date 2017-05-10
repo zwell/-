@@ -24,7 +24,14 @@ class CreateBookingRequest extends FormRequest {
 	public function rules()
 	{
 		return [
-            
+            'room_type_id' => 'required',
+            'customer_name' => 'required',
+            'customer_phone' => 'required',
+            'check_in_date' => 'required',
+            'check_in_days' => 'required',
+            'amount' => 'required',
+            'check_in_fee' => 'required',
+            'keep_datetime' => 'required'
 		];
 	}
 }

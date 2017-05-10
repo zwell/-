@@ -24,7 +24,6 @@ class UpdateCheckInRequest extends FormRequest {
 	public function rules()
 	{
 		return [
-            'room_type_id' => 'required', 
             
 		];
 	}

@@ -17,11 +17,20 @@ CREATE TABLE `room_type` (
 `area` float(5,2) NOT NULL DEFAULT 0 COMMENT '面积/平方米',
 `number_of_bed` tinyint(1) NOT NULL DEFAULT 1 COMMENT '床位数',
 `number_of_room` int(11) NOT NULL DEFAULT 0 COMMENT '房间数',
-`number_of_left_room` int(11) NOT NULL DEFAULT 0 COMMENT '剩余房间数',
 `created_at` timestamp NOT NULL COMMENT '创建时间',
 `updated_at` timestamp COMMENT '更新时间',
 PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT '客房类型表';
+
+CREATE TABLE `room_type_date_check_in` (
+`id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键id',
+`room_type_id` int(11) NOT NULL DEFAULT 0 COMMENT '客房类型编号',
+`date` date NOT NULL COMMENT '日期',
+`number_of_check_in_room` int(11) NOT NULL DEFAULT 0 COMMENT '入住数',
+`created_at` timestamp NOT NULL COMMENT '创建时间',
+`updated_at` timestamp COMMENT '更新时间',
+PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT '客房类型入住日期表';
 
 CREATE TABLE `room` (
 `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键id',
@@ -70,12 +79,13 @@ PRIMARY KEY (`id`)
 
 CREATE TABLE `booking` (
 `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键id',
-`customer_id` int(11) NOT NULL COMMENT '客户编号',
+`customer_id` int(11) COMMENT '客户编号',
 `room_type_id` int(11) NOT NULL COMMENT '客房类型编号',
 `customer_name` varchar(30) NOT NULL COMMENT '客户姓名',
 `customer_phone` varchar(20) NOT NULL COMMENT '客户联系方式',
 `check_in_date` date NOT NULL COMMENT '入住日期',
 `check_in_days` int(11) NOT NULL DEFAULT 1 COMMENT '入住天数',
+`amount` int(11) NOT NULL DEFAULT 1 COMMENT '预订数量',
 `check_in_fee` int(11) NOT NULL COMMENT '入住房费',
 `prepaid` int(11) NOT NULL COMMENT '预付金额',
 `keep_datetime` datetime NOT NULL COMMENT '最晚保留时间',
@@ -91,13 +101,15 @@ CREATE TABLE `check_in` (
 `booking_id` int(11) NOT NULL DEFAULT 0 COMMENT '预订编号',
 `customer_id` int(11) NOT NULL COMMENT '客户编号',
 `room_id` int(11) NOT NULL COMMENT '客房编号',
-`check_in_datetime` datetime NOT NULL COMMENT '入住时间',
+#`check_in_datetime` datetime NOT NULL COMMENT '入住时间',
 `check_in_days` int(11) NOT NULL DEFAULT 1 COMMENT '入住天数',
 `check_in_fee` int(11) NOT NULL COMMENT '入住房费',
 `pay_fee` int(11) NOT NULL COMMENT '已缴房费',
 `desopsit` int(11) NOT NULL COMMENT '押金',
 `check_out_datetime` datetime NOT NULL COMMENT '预计退房时间',
 `status` tinyint(1) NOT NULL DEFAULT 1 COMMENT '状态。1入住中，2已退房',
+`created_at` timestamp NOT NULL COMMENT '入住时间',
+`updated_at` timestamp COMMENT '更新时间',
 PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT '入住表';
 

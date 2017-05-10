@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Redirect;
 use Schema;
+use DB;
 use App\Room;
 use App\RoomType;
 use App\Http\Requests\CreateRoomRequest;
@@ -121,4 +122,38 @@ class RoomController extends Controller {
         return redirect()->route(config('quickadmin.route').'.room.index');
     }
 
+    public function createDateCheckIn()
+    {
+
+    }
+
+    public function getAvaiableRooms(Request $request)
+    {
+        $checkInDate = $request->get('check_in_date');
+        $checkInDays = $request->get('check_in_days');
+        if (!$checkInDate || !$checkInDays) {
+            return ['code' => 0, 'msg' => "缺少参数"];
+        }
+        $checkInDates = array();
+        for ($i = 0; $i < $checkInDays; $i++) {
+            $checkInDates[] = date("Y-m-d", strtotime("+ ".$i." days", strtotime($checkInDate)));
+        }
+
+        // 不可用的房间
+        $checkedRooms = DB::table('room_date_check_in')
+            ->select('room_id')
+            ->whereIn('date', $checkInDates)
+            ->get()
+            ->toarray();
+        $checkedRoomIds = array_column($checkedRooms, 'room_id');
+        
+        // 可用房间
+        $allRooms = DB::table('room')
+            ->join('room_type', 'room_type.id', '=', 'room.type_id')
+            ->select('room.type_id', 'room_type.name as type_name', 'room_type.fee', 'room.id', 'room.name')
+            ->whereNotIn('room.id', $checkedRoomIds)
+            ->get();
+
+        return ['code' => 1, 'msg' => "成功", 'data' => $allRooms];;
+    }
 }

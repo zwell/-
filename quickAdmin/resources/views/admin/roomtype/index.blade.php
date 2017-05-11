@@ -21,7 +21,6 @@
                         <th>面积(平方米)</th>
                         <th>床位数</th>
                         <th>房间数</th>
-                        <th>剩余房间数</th>
                         <th>创建时间</th>
 
                         <th>&nbsp;</th>
@@ -39,7 +38,6 @@
                             <td>{{ $row->area }}</td>
                             <td>{{ $row->number_of_bed }}</td>
                             <td>{{ $row->number_of_room }}</td>
-                            <td>{{ $row->number_of_left_room }}</td>
                             <td>{{ $row->created_at }}</td>
 
                             <td>

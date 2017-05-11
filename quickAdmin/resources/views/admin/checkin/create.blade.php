@@ -33,8 +33,21 @@
     </div>
 </div>
 <div class="form-group">
+    {!! Form::label('room_type_id', '客房类型*', array('class'=>'col-sm-2 control-label')) !!}
+    <div class="col-sm-10">
+<?php if ($booking->room_type_id){ ?>
+        {!! Form::text('aaaa', old('aaaa', $booking->roomType->name), array('class'=>'form-control')) !!}
+        <input type="hidden" id="room_type_id" name="room_type_id" value="<?php echo $booking->room_type_id; ?>">
+<?php } else { ?>
+        {!! Form::button( "获取可选房型" , array('id' => 'getRoomType', 'class' => 'btn btn-primary')) !!}
+<?php } ?>
+    </div>
+</div>
+<div class="form-group" id='roomType'>
+</div>
+<div class="form-group">
     <div class="col-sm-10 col-sm-offset-2">
-      {!! Form::button( "获取可选客房" , array('id' => 'getRoomType', 'class' => 'btn btn-primary')) !!}
+      {!! Form::button( "获取可选客房" , array('id' => 'getRoom', 'class' => 'btn btn-primary')) !!}
     </div>
 </div>
 <div class="form-group" id='room'>
@@ -77,11 +90,12 @@
 <div class="form-group">
     {!! Form::label('check_out_datetime', '预计退房时间', array('class'=>'col-sm-2 control-label')) !!}
     <div class="col-sm-10">
-        {!! Form::text('check_out_datetime', old('check_out_datetime', $booking->check_out_datetime), array('id' => 'check_out_datetime', 'class'=>'form-control')) !!}
+        {!! Form::text('check_out_datetime', old('check_out_datetime', $booking->check_out_datetime), array('id' => 'check_out_datetime', 'class'=>'form-control datepicker')) !!}
         
     </div>
 </div>
-<input type="hidden" id="amount" name="amount" value="<?php echo $booking ? $booking->amount : 1; ?>">
+<input type="hidden" id="amount" name="amount" value="<?php echo $booking->amount; ?>">
+<input type="hidden" id="booking_id" name="booking_id" value="<?php echo $booking->id; ?>">
 <div class="form-group">
     <div class="col-sm-10 col-sm-offset-2">
       {!! Form::submit( trans('quickadmin::templates.templates-view_create-create') , array('class' => 'btn btn-primary')) !!}
@@ -106,18 +120,72 @@
                     alert("请输入入住天数");
                     return false;
                 }
-                var amount = $("#amount").val();
-                if (amount == "") {
-                    alert("请输入预订数量");
+                $.ajax({
+                    type: "POST",
+                    url: "/admin/roomtype/getAvaiableRoomTypes",
+                    headers: {
+                        'X-CSRF-TOKEN': $('input[name="_token"]').val()
+                    },
+                    data: {check_in_date:check_in_date,check_in_days:check_in_days,amount:1},
+                    success: function(result) {
+                        if (result.code == 0) {
+                            alert(result.msg);
+                            return false;
+                        }
+                        var html = '<label for="room_type_id" class="col-sm-2 control-label">客房类型*</label><div class="col-sm-10"><select class="form-control" id="room_type_id" name="room_type_id"><option value="">选择客房类型</option>';
+                        $.each(result.data, function( index, value ) {
+                            html = html + '<option value="'+value.id+'" data-fee="'+value.fee+'">'+value.name+'（费用：'+value.fee+'，剩余客房：'+value.rooms+'间）</option>'
+                        });
+                        html = html + '</select></div>';
+                        $("#roomType").html(html);
+                    },
+                    dataType: "json"
+                });
+            });
+            $('body').on('change','select[name="room_type_id"]',function() {
+                var selected = $(this).children('option:selected');
+                if (selected.val() == '') {
+                    $("input[name='check_in_fee']").val("");
+                    $("input[name='keep_datetime']").val("");
                     return false;
                 }
+                var check_in_date = $("#check_in_date").val();
+                if (check_in_date == "") {
+                    alert("请输入入住日期");
+                    return false;
+                }
+                var check_in_days = $("#check_in_days").val();
+                if (check_in_days == "") {
+                    alert("请输入入住天数");
+                    return false;
+                }
+                var amount = $("#amount").val();
+                // 计算房费
+                var fee = check_in_days * amount * selected.data('fee');
+                $("input[name='check_in_fee']").val(fee);
+            });
+
+            $('#getRoom').click(function () {
+                var check_in_date = $("#check_in_date").val();
+                if (check_in_date == "") {
+                    alert("请输入入住日期");
+                    return false;
+                }
+                var check_in_days = $("#check_in_days").val();
+                if (check_in_days == "") {
+                    alert("请输入入住天数");
+                    return false;
+                }
+                var amount = $("#amount").val();
+                var room_type_id = $("#room_type_id").val();
+                $("#room").html("");
                 $.ajax({
                     type: "POST",
                     url: "/admin/room/getAvaiableRooms",
                     headers: {
                         'X-CSRF-TOKEN': $('input[name="_token"]').val()
                     },
-                    data: {check_in_date:check_in_date,check_in_days:check_in_days,amount:amount},
+                    data: {room_type_id:room_type_id,check_in_date:check_in_date,check_in_days:check_in_days,amount:amount},
                     success: function(result) {
                         if (result.code == 0) {
                             alert(result.msg);

@@ -27,7 +27,7 @@ class RoomController extends Controller {
 	 */
 	public function index(Request $request)
     {
-        $room = Room::with("roomType")->get();
+        $room = Room::with("roomType")->orderBy('type_id')->get();
         foreach ($room as $key => &$value) {
         	$value['status'] = isset($this->status[$value['status']]) ? $this->status[$value['status']] : "未知";
         }
@@ -56,6 +56,10 @@ class RoomController extends Controller {
 	{
 	    
 		Room::create($request->all());
+
+		DB::table('room_type')
+            ->where('id', $request->get('type_id'))
+            ->increment('number_of_room', 1);
 
 		return redirect()->route(config('quickadmin.route').'.room.index');
 	}
@@ -129,9 +133,10 @@ class RoomController extends Controller {
 
     public function getAvaiableRooms(Request $request)
     {
+        $roomTypeId = $request->get('room_type_id');
         $checkInDate = $request->get('check_in_date');
         $checkInDays = $request->get('check_in_days');
-        if (!$checkInDate || !$checkInDays) {
+        if (!$roomTypeId || !$checkInDate || !$checkInDays) {
             return ['code' => 0, 'msg' => "缺少参数"];
         }
         $checkInDates = array();
@@ -151,6 +156,7 @@ class RoomController extends Controller {
         $allRooms = DB::table('room')
             ->join('room_type', 'room_type.id', '=', 'room.type_id')
             ->select('room.type_id', 'room_type.name as type_name', 'room_type.fee', 'room.id', 'room.name')
+            ->where('room.type_id', $roomTypeId)
             ->whereNotIn('room.id', $checkedRoomIds)
             ->get();
 

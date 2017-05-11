@@ -16,7 +16,14 @@
                         <th>
                             {!! Form::checkbox('delete_all',1,false,['class' => 'mass']) !!}
                         </th>
-                        <th>111</th>
+                        <th>客户姓名</th>
+                        <th>客户联系方式</th>
+                        <th>客房名称</th>
+                        <th>入住天数</th>
+                        <th>入住房费</th>
+                        <th>预计退房时间</th>
+                        <th>状态</th>
+                        <th>入时间</th>
 
                         <th>&nbsp;</th>
                     </tr>
@@ -28,28 +35,22 @@
                             <td>
                                 {!! Form::checkbox('del-'.$row->id,1,false,['class' => 'single','data-id'=> $row->id]) !!}
                             </td>
-                            <td>{{ $row->11 }}</td>
+                            <td>{{ $row->customer_name }}</td>
+                            <td>{{ $row->customer_phone }}</td>
+                            <td>{{ $row->room->name }}</td>
+                            <td>{{ $row->check_in_days }}</td>
+                            <td>{{ $row->check_in_fee }}</td>
+                            <td>{{ $row->check_out_datetime }}</td>
+                            <td>{{ $row->status }}</td>
+                            <td>{{ $row->created_at }}</td>
 
                             <td>
-                                {!! link_to_route(config('quickadmin.route').'.checkin.edit', trans('quickadmin::templates.templates-view_index-edit'), array($row->id), array('class' => 'btn btn-xs btn-info')) !!}
-                                {!! Form::open(array('style' => 'display: inline-block;', 'method' => 'DELETE', 'onsubmit' => "return confirm('".trans("quickadmin::templates.templates-view_index-are_you_sure")."');",  'route' => array(config('quickadmin.route').'.checkin.destroy', $row->id))) !!}
-                                {!! Form::submit(trans('quickadmin::templates.templates-view_index-delete'), array('class' => 'btn btn-xs btn-danger')) !!}
-                                {!! Form::close() !!}
+                                {!! link_to_route(config('quickadmin.route').'.checkin.checkout', '退房', array('checkin_id' => $row->id), array('class' => 'btn btn-xs btn-info')) !!}
                             </td>
                         </tr>
                     @endforeach
                 </tbody>
             </table>
-            <div class="row">
-                <div class="col-xs-12">
-                    <button class="btn btn-danger" id="delete">
-                        {{ trans('quickadmin::templates.templates-view_index-delete_checked') }}
-                    </button>
-                </div>
-            </div>
-            {!! Form::open(['route' => config('quickadmin.route').'.checkin.massDelete', 'method' => 'post', 'id' => 'massDelete']) !!}
-                <input type="hidden" id="send" name="toDelete">
-            {!! Form::close() !!}
         </div>
 	</div>
 @else

@@ -98,9 +98,11 @@ PRIMARY KEY (`id`)
 
 CREATE TABLE `check_in` (
 `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键id',
-`booking_id` int(11) NOT NULL DEFAULT 0 COMMENT '预订编号',
-`customer_id` int(11) NOT NULL COMMENT '客户编号',
+`booking_id` int(11) COMMENT '预订编号',
+`customer_id` int(11) COMMENT '客户编号',
 `room_id` int(11) NOT NULL COMMENT '客房编号',
+`customer_name` varchar(30) NOT NULL COMMENT '客户姓名',
+`customer_phone` varchar(20) NOT NULL COMMENT '客户联系方式',
 #`check_in_datetime` datetime NOT NULL COMMENT '入住时间',
 `check_in_days` int(11) NOT NULL DEFAULT 1 COMMENT '入住天数',
 `check_in_fee` int(11) NOT NULL COMMENT '入住房费',
@@ -126,8 +128,9 @@ PRIMARY KEY (`id`)
 CREATE TABLE `check_out` (
 `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键id',
 `check_in_id` int(11) NOT NULL COMMENT '入住编号',
-`employee_id` int(11) NOT NULL COMMENT '员工编号',
+`employee_id` int(11) COMMENT '员工编号',
 `check_out_fee` int(11) NOT NULL COMMENT '退房缴费，消费和物品损坏',
-`checkout_datetime` datetime NOT NULL COMMENT '退房时间',
+`created_at` timestamp NOT NULL COMMENT '退房时间',
+`updated_at` timestamp COMMENT '更新时间',
 PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT '退房表';

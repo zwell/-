@@ -77,7 +77,7 @@
 <div class="form-group">
     {!! Form::label('keep_datetime', '最晚保留时间', array('class'=>'col-sm-2 control-label')) !!}
     <div class="col-sm-10">
-        {!! Form::text('keep_datetime', old('keep_datetime'), array('id' => 'keep_datetime', 'class'=>'form-control')) !!}
+        {!! Form::text('keep_datetime', old('keep_datetime'), array('id' => 'keep_datetime', 'class'=>'form-control datetimepicker')) !!}
         
     </div>
 </div>

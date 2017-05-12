@@ -19,7 +19,14 @@
 {!! Form::open(array('route' => config('quickadmin.route').'.checkin.checkoutStore', 'id' => 'form-with-validation', 'class' => 'form-horizontal')) !!}
 
 <div class="form-group">
-    {!! Form::label('check_out_fee', '退房缴费*', array('class'=>'col-sm-2 control-label')) !!}
+    {!! Form::label('check_in_fee', '房费*', array('class'=>'col-sm-2 control-label')) !!}
+    <div class="col-sm-10">
+        {!! Form::text('check_in_fee', old('check_in_fee', 300), array('id' => 'check_in_days', 'class'=>'form-control', 'readonly')) !!}
+        
+    </div>
+</div>
+<div class="form-group">
+    {!! Form::label('check_out_fee', '其他消费*', array('class'=>'col-sm-2 control-label')) !!}
     <div class="col-sm-10">
         {!! Form::text('check_out_fee', old('check_out_fee', 0), array('id' => 'check_in_days', 'class'=>'form-control')) !!}
         

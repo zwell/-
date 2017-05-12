@@ -66,14 +66,15 @@ PRIMARY KEY (`id`)
 
 CREATE TABLE `employee` (
 `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键id',
-`type` enum("负责人","前台接待员","客房服务员") NOT NULL COMMENT '类型',
+`type` enum("负责人","接待员","前台员工","收银员") NOT NULL COMMENT '类型',
 `name` varchar(30) NOT NULL COMMENT '名称',
 `phone` varchar(20) NOT NULL DEFAULT "" COMMENT '联系电话',
 `join_date` date NOT NULL COMMENT '入职日期',
 `date_of_birth` date NOT NULL COMMENT '生日',
 `salary` int(11) NOT NULL DEFAULT 0 COMMENT '基本工资',
 `status` tinyint(1) NOT NULL DEFAULT 1 COMMENT '状态。1正常，2休假中，-1已离职',
-`create_datetime` datetime NOT NULL COMMENT '创建时间',
+`created_at` timestamp NOT NULL COMMENT '创建时间',
+`updated_at` timestamp COMMENT '更新时间',
 PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT '员工表';
 
